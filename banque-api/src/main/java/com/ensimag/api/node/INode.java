@@ -6,7 +6,6 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import com.ensimag.api.message.IAck;
-import com.ensimag.api.message.IMessage;
 import com.ensimag.api.message.IResult;
 
 /**
@@ -15,7 +14,7 @@ import com.ensimag.api.message.IResult;
  * @author guillaume
  * 
  */
-public interface INode extends Serializable, Remote {
+public interface INode<MessageType> extends Serializable, Remote {
 
 	/**
 	 * @return the id of the node
@@ -31,7 +30,7 @@ public interface INode extends Serializable, Remote {
 	 *            the message to handle
 	 * @throws RemoteException
 	 */
-	void onMessage(IMessage<? extends Serializable> message) throws RemoteException;
+	void onMessage(MessageType message) throws RemoteException;
 
 	/**
 	 * Handles the ack of a given message
@@ -49,7 +48,7 @@ public interface INode extends Serializable, Remote {
 	 *            the neighboor to add
 	 * @throws RemoteException
 	 */
-	void addNeighboor(INode neighboor) throws RemoteException;
+	void addNeighboor(INode<MessageType> neighboor) throws RemoteException;
 
 	/**
 	 * Remove a neighboor from the node
@@ -68,5 +67,15 @@ public interface INode extends Serializable, Remote {
 	 * @return the result of the sent message
 	 */
 	List<IResult<? extends Serializable>> getResultForMessage(long messageId) throws RemoteException;
+
+	/**
+	 * Deliver a result to a bank
+	 * 
+	 * @param result
+	 *            the result to deliver
+	 * @return <code>true</code> if the result is delivered, <code>false</code>
+	 *         otherwise
+	 */
+	Boolean deliverResult(IResult<Serializable> result) throws RemoteException;
 
 }
