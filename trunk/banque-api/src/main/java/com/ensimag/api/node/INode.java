@@ -57,7 +57,7 @@ public interface INode<MessageType> extends Serializable, Remote {
 	 *            the neighboor to remove
 	 * @throws RemoteException
 	 */
-	void removeNeighboor(INode neighboor) throws RemoteException;
+	void removeNeighboor(INode<MessageType> neighboor) throws RemoteException;
 
 	/**
 	 * Get the result for the given message
