@@ -1,0 +1,1 @@
+simple bank network based on simple algorithm
